@@ -10,8 +10,7 @@ describe('/', function() {
       .end(function(err, res) {
         assert.ifError(err);
         assert.equal(res.status, status.OK);
-        var result = JSON.parse(res.body);
-        assert.deepEqual({ user: 'test' }, result);
+        assert.equal(res.body.disks.length, 2);
         done();
       });
   });
