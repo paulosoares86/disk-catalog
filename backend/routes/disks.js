@@ -1,24 +1,22 @@
 var express = require('express');
 var router = express.Router();
+var Disk = require('../model/disk');
 
-/* GET users listing. */
+function makeResponse(err, data) {
+  if (err) {
+    this.status(500).send({error: err})
+  } else {
+    this.send(data || {})
+  }
+}
+
 router.get('/', function(req, res, next) {
-    res.send({
-        disks: [{
-            id: 1,
-            name: 'led zeppelin',
-            author: 'led zeppelin'
-        }, {
-            id: 2,
-            name: 'Under The Bridge',
-            author: 'Red Hot Chilli Peppers'
-        }]
-    });
+  Disk.find(makeResponse.bind(res));
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req)
-    res.send({});
+  var disk = new Disk(req.body.disk);
+  disk.save(makeResponse.bind(res));
 });
 
 module.exports = router;

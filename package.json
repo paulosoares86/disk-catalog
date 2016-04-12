@@ -30,6 +30,7 @@
     "express": "^4.13.4",
     "express-generator": "^4.13.1",
     "http-status": "^0.2.1",
+    "mongoose": "^4.4.12",
     "superagent": "^1.8.3"
   },
   "devDependencies": {},
