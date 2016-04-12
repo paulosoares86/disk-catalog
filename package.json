@@ -1,0 +1,37 @@
+{
+  "name": "disk-catalog",
+  "version": "1.0.0",
+  "description": "An application to illustrate the usage ElasticSearch",
+  "author": "Paulo Soares <phsoares.ita@gmail.com>",
+  "contributors": [
+    {
+      "name": "Paulo Soares",
+      "email": "phsoares.ita@gmail.com"
+    }
+  ],
+  "scripts": {
+    "preinstall": "cd backend && npm install",
+    "prestart": "DEBUG=backend:* npm start"
+  },
+  "main": "lib/foo.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulosoares86/disk-catalog"
+  },
+  "bugs": {
+    "url": "https://github.com/paulosoares86/disk-catalog/issues"
+  },
+  "keywords": [
+    "ElasticSearch",
+    "MongoD",
+    "node.js"
+  ],
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-generator": "^4.13.1",
+    "http-status": "^0.2.1",
+    "superagent": "^1.8.3"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}
