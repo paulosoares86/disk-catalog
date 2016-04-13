@@ -1,5 +1,11 @@
 TODO: remove unnecessary data from this file
 TODO: review package.json
+TODO: better logging
+TODO: validation
+TODO: pagination
+TODO: what happens if some app crashes
+TODO: explain how this scales
+TODO: colocar banco backend pra ambiente de teste
 
 Disk catalog
 ==================
@@ -44,7 +50,7 @@ To run tests you should install mocha
   npm install –g mocha@1.16.2
 ```
 
-and after that
+and after that, with ElasticSearch and MongoDB running just execute
 
 ```shell
   mocha spec

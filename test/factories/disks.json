@@ -1,0 +1,12 @@
+{
+  "first": {
+      "name": "Led Zeppelin",
+      "author": "Led Zeppelin",
+      "price": 12.45
+  },
+  "second": {
+      "name": "Under the Bridge",
+      "author": "Red Hot Chilli Peppers",
+      "price": 42.19
+  }
+}
