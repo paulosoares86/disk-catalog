@@ -12,6 +12,7 @@ Disk.prototype.validationErrors = function() {
     if (!this.name) errors.push('Name is required!');
     if (!this.author) errors.push('Author is required!');
     if (!this.price) errors.push('Price is required!');
+    else if (this.price < 0.01) errors.push('Price should be at least 0.01!');
     return errors;
 }
 
