@@ -98,4 +98,17 @@ describe('/', function() {
                 });
         });
     });
+
+
+    it('should receive validation errors', function(done) {
+        superagent
+            .post('http://localhost:3000/disks', {
+                disk: disks.withoutName
+            })
+            .end(function(err, res) {
+                assert.equal(res.status, status.BAD_REQUEST);
+                assert.deepEqual(res.body, {error: ['Name is required!']});
+                done();
+            });
+    });
 })

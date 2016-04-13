@@ -8,5 +8,9 @@
       "name": "Under the Bridge",
       "author": "Red Hot Chilli Peppers",
       "price": 42.19
+  },
+  "withoutName": {
+      "author": "Red Hot Chilli Peppers",
+      "price": 42.19
   }
 }
