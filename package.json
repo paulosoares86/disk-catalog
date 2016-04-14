@@ -27,6 +27,7 @@
     "node.js"
   ],
   "dependencies": {
+    "elasticsearch": "^11.0.0",
     "express": "^4.13.4",
     "express-generator": "^4.13.1",
     "http-status": "^0.2.1",

@@ -1,7 +1,6 @@
 TODO: remove unnecessary data from this file
 TODO: review package.json
 TODO: better logging
-TODO: validation
 TODO: pagination
 TODO: what happens if some app crashes
 TODO: explain how this scales

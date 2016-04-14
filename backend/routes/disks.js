@@ -4,14 +4,16 @@ var Disk = require('../model/disk');
 
 function buildResponse(err, data) {
     if (err) {
-        this.status(500).send({error: err});
+        this.status(500).send({
+            error: err
+        });
     } else {
         this.send(data || {});
     }
 }
 
 router.get('/', function(req, res, next) {
-    Disk.find(buildResponse.bind(res));
+    Disk.all(buildResponse.bind(res));
 });
 
 router.get('/:id', function(req, res, next) {
@@ -19,7 +21,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-    Disk.findById(req.params.id).remove(buildResponse.bind(res));
+    Disk.remove(req.params.id, buildResponse.bind(res));
 });
 
 router.patch('/:id', function(req, res, next) {
@@ -30,7 +32,9 @@ router.post('/', function(req, res, next) {
     var disk = new Disk(req.body.disk);
     var validationErrors = disk.validationErrors();
     if (validationErrors.length > 0) {
-        res.status(400).send({error: validationErrors});
+        res.status(400).send({
+            error: validationErrors
+        });
     } else {
         disk.save(buildResponse.bind(res));
     }

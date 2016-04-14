@@ -1,6 +1,6 @@
 var assert = require('assert');
 var Disk = require('../backend/model/disk');
-var disks = require('./factories/disks.json');
+var disks = require('./fixtures/disks.json');
 
 describe('Disk model', function() {
     it('should be valid when all fields are present and not empty', function(done) {
@@ -55,6 +55,14 @@ describe('Disk model', function() {
     it('should be valid when price is 1 cent', function(done) {
         var disk = new Disk(disks.withLowPrice);
         assert.equal(disk.validationErrors().length, 0);
+        done();
+    });
+
+
+    it('should be invalid when there is no description', function(done) {
+        var disk = new Disk(disks.withoutDescription);
+        assert.equal(disk.validationErrors().length, 1);
+        assert.equal(disk.validationErrors()[0], 'Description is required!');
         done();
     });
 
