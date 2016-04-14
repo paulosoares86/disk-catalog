@@ -4,6 +4,8 @@ var client = new elasticsearch.Client({
     host: 'localhost:9200'
 });
 
+var baseIndexTypeObj = {index: 'disk-collection',type: 'disk'};
+
 DiskDescription = function(id, description) {
     this.id = id;
     this.description = description;
@@ -29,11 +31,7 @@ DiskDescription.all = function(cb) {
 }
 
 DiskDescription.findById = function(id, cb) {
-    client.get({
-        index: 'disk-collection',
-        type: 'disk',
-        id: id
-    }, cb);
+    client.get(_.extend(baseIndexTypeObj, {id: id}), cb);
 }
 
 DiskDescription.findOneAndUpdate = function(id, params, cb) {
