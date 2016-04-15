@@ -4,82 +4,57 @@ var client = new elasticsearch.Client({
     host: 'localhost:9200'
 });
 
-var baseIndexTypeObj = {index: 'disk-collection',type: 'disk'};
+function queryObject(id, params) {
+    var obj = {id: id, index: 'disk-collection', type: 'disk'};
+    if (params) _.extend(obj, params);
+    return obj;
+}
+
+function delayedCallback(cb, err, data) {
+    setTimeout(cb.bind(null, err, data), 1000);
+}
 
 DiskDescription = function(id, description) {
     this.id = id;
     this.description = description;
 }
 
-function getListFromHits(data) {
-    if (data && data.hits && data.hits.hits)
-        return data.hits.hits.map(function(hit) {
-            return hit._source;
-        });
-    return [];
+function handleSearchResults(cb, err, data) {
+    if (err) {
+        cb(err, data);
+    } else {
+        var hits = data && data.hits && data.hits.hits;
+        if (!hits) cb(null, []);
+        else cb(null, hits.map(function(hit) {return hit._source;}));
+    }
 }
 
 DiskDescription.all = function(cb) {
-    client.search({
-        index: 'disk-collection',
-        q: 'description:*'
-    }, function(err, data) {
-        if (!cb) console.log(data.hits.hits);
-        else if (err) cb(err);
-        else cb(err, getListFromHits(data));
-    });
+    client.search({index: 'disk-collection', q: 'description:*'},
+                  handleSearchResults.bind(this, cb));
 }
 
 DiskDescription.findById = function(id, cb) {
-    client.get(_.extend(baseIndexTypeObj, {id: id}), cb);
+    client.get(queryObject(id), cb);
 }
 
 DiskDescription.findOneAndUpdate = function(id, params, cb) {
-    client.update({
-            index: 'disk-collection',
-            type: 'disk',
-            id: id,
-            body: {
-                doc: params
-            }
-        },
-        function(err, data) {
-            setTimeout(cb.bind(this, err, data), 1000);
-        });
+    client.update(queryObject(id, {body: {doc: params}}),
+                  delayedCallback.bind(this, cb));
 }
 
 DiskDescription.remove = function(id, cb) {
-    client.delete({
-            index: 'disk-collection',
-            type: 'disk',
-            id: id
-        },
-        function(err, data) {
-            setTimeout(cb.bind(this, err, data), 1000);
-        });
+    client.delete(queryObject(id), delayedCallback.bind(this, cb));
 }
 
-// TODO: documentar melhor
 DiskDescription.prototype.save = function(cb) {
-    client.create({
-            index: 'disk-collection',
-            type: 'disk',
-            id: this.id,
-            body: {
-                id: this.id,
-                description: this.description
-            }
-        },
-        function(err, data) {
-            setTimeout(cb.bind(this, err, data), 1000);
-        }
-    );
+    client.create(queryObject(this.id, {
+      body: {id: this.id, description: this.description}
+    }), delayedCallback.bind(this, cb));
 }
 
 DiskDescription.removeAll = function(cb) {
-    client.indices.delete({
-        index: 'disk-collection'
-    }, cb);
+    client.indices.delete({index: 'disk-collection'}, cb);
 }
 
 module.exports = DiskDescription;
