@@ -28,16 +28,11 @@ router.patch('/:id', function(req, res, next) {
     Disk.findOneAndUpdate(req.params.id, req.body, buildResponse.bind(res));
 });
 
+
+// TODO: colocar validacao
 router.post('/', function(req, res, next) {
     var disk = new Disk(req.body.disk);
-    var validationErrors = disk.validationErrors();
-    if (validationErrors.length > 0) {
-        res.status(400).send({
-            error: validationErrors
-        });
-    } else {
-        disk.save(buildResponse.bind(res));
-    }
+    disk.save(buildResponse.bind(res));
 });
 
 module.exports = router;

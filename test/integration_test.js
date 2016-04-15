@@ -65,8 +65,9 @@ describe('Disks Endpoint', function() {
             .end(function(err, res) {
                 assert.ifError(err);
                 assert.equal(res.status, status.OK);
-                var obj = res.body[0].name == disks.first.name ? res.body[0] : res.body[1];
-                delete obj.id;
+                var obj = res.body[0];
+                delete obj._id;
+                delete obj.__v;
                 assert.deepEqual(obj, disks.first);
                 done();
             })
@@ -75,7 +76,7 @@ describe('Disks Endpoint', function() {
     it('should show a disk', function(done) {
         getFirstObjectFromList(function(obj) {
             superagent
-                .get('http://localhost:3000/disks/' + obj.id)
+                .get('http://localhost:3000/disks/' + obj._id)
                 .end(function(err, res) {
                     assert.ifError(err);
                     assert.equal(res.status, status.OK);
@@ -89,7 +90,7 @@ describe('Disks Endpoint', function() {
     it('should remove a disk', function(done) {
         getFirstObjectFromList(function(obj) {
             superagent
-                .del('http://localhost:3000/disks/' + obj.id)
+                .del('http://localhost:3000/disks/' + obj._id)
                 .end(function(err, res) {
                     assertListCount(1, done);
                 });
@@ -100,7 +101,7 @@ describe('Disks Endpoint', function() {
         getFirstObjectFromList(function(obj) {
             var newName = 'new album name';
             superagent
-                .patch('http://localhost:3000/disks/' + obj.id, {
+                .patch('http://localhost:3000/disks/' + obj._id, {
                     name: newName
                 })
                 .end(function(err, res) {

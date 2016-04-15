@@ -5,6 +5,7 @@ TODO: pagination
 TODO: what happens if some app crashes
 TODO: explain how this scales
 TODO: colocar banco backend pra ambiente de teste
+TODO: usar um lint
 
 Disk catalog
 ==================
