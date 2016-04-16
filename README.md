@@ -1,10 +1,7 @@
 TODO: remove unnecessary data from this file
-TODO: start everything with node app.js
-TODO: change development in logger
 TODO: pagination
 TODO: what happens if some app crashes
 TODO: explain how this scales
-TODO: colocar banco backend pra ambiente de teste
 TODO: usar um lint
 TODO: lembrar que só vai pro elasticsearch com um segundo de atraso
 
@@ -54,7 +51,16 @@ To run tests you should install mocha
 and after that, with ElasticSearch and MongoDB running just execute
 
 ```shell
-  mocha spec
+  mocha
+```
+
+Execution
+---------
+
+To run the application simply run on your terminal
+
+```shell
+  node app.js
 ```
 
 This gem was born out of our own need for a fail-safe and out-of-the-way manner to add multi-tenancy to our Rails app through a shared database strategy, that integrates (near) seamless with Rails.

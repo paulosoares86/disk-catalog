@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var elasticsearch = require('elasticsearch');
+var env = require('../../../config/env');
 var client = new elasticsearch.Client({
     host: 'localhost:9200'
 });
@@ -7,7 +8,7 @@ var client = new elasticsearch.Client({
 function queryObject(id, params) {
     var obj = {
         id: id,
-        index: 'disk-collection',
+        index: 'disk-collection-' + env,
         type: 'disk'
     };
     if (params) _.extend(obj, params);

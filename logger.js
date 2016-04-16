@@ -1,9 +1,10 @@
 var winston = require('winston');
+var env = require('./config/env');
 
 var logger = new(winston.Logger)({
     transports: [
         new(winston.transports.File)({
-            filename: 'log/development.json'
+            filename: 'log/' + env + '.json'
         })
     ]
 });

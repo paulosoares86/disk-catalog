@@ -1,5 +1,6 @@
+var env = require('../../../config/env');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/backend');
+mongoose.connect('mongodb://localhost/backend-' + env);
 
 var Disk = mongoose.model('Disk', {
     name: {
