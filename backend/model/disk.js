@@ -21,11 +21,8 @@ function extractFields(context) {
 Disk.prototype.save = function(cb) {
     var diskMongo = new DiskMongo(this);
     diskMongo.save(function(err, data) {
-        if (err) {
-            cb(err);
-            return;
-        }
-        DiskFullText.create(this.id, extractFields(this), cb);
+        if (err) cb(err);
+        else DiskFullText.create(this.id, extractFields(this), cb);
     });
 }
 

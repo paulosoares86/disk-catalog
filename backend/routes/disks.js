@@ -1,11 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var Disk = require('../model/disk');
+var _       = require('underscore'),
+  express   = require('express'),
+  Disk      = require('../model/disk'),
+  router    = express.Router();
 
-function buildResponse(err, data) {
-    if (err) {
+function buildResponse(error, data) {
+    if (error && error.errors) {
+        var errMsgs = _.values(error.errors).map(function(e) {
+            return e.message;
+        });
+        this.status(400).send({
+            error: errMsgs
+        });
+    } else if (error) {
         this.status(500).send({
-            error: err
+            error: error
         });
     } else {
         this.send(data || {});
@@ -28,8 +36,6 @@ router.patch('/:id', function(req, res, next) {
     Disk.findOneAndUpdate(req.params.id, req.body, buildResponse.bind(res));
 });
 
-
-// TODO: colocar validacao
 router.post('/', function(req, res, next) {
     var disk = new Disk(req.body.disk);
     disk.save(buildResponse.bind(res));

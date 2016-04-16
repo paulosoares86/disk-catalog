@@ -88,13 +88,15 @@ describe('Disks Endpoint', function() {
     });
 
     it('should remove a disk', function(done) {
-        getFirstObjectFromList(function(obj) {
-            superagent
-                .del('http://localhost:3000/disks/' + obj._id)
-                .end(function(err, res) {
-                    assertListCount(1, done);
-                });
-        });
+        assertListCount(2, function() {
+          getFirstObjectFromList(function(obj) {
+              superagent
+                  .del('http://localhost:3000/disks/' + obj._id)
+                  .end(function(err, res) {
+                      assertListCount(1, done);
+                  });
+          });
+      });
     });
 
     it('should update a disk', function(done) {
