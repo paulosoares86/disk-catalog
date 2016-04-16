@@ -1,4 +1,5 @@
 var DiskMongo = require('./disk/disk_mongo');
+var logger = require('../../logger');
 var DiskFullText = require('./disk/disk_full_text');
 var _ = require('underscore');
 
@@ -18,11 +19,23 @@ function extractFields(context) {
     }
 }
 
+function cbWithLog(cb, err, data) {
+    if (err) {
+        var error = new Error(err);
+        logger.error(error);
+    }
+    cb(err, data);
+}
+
 Disk.prototype.save = function(cb) {
     var diskMongo = new DiskMongo(this);
     diskMongo.save(function(err, data) {
-        if (err) cb(err);
-        else DiskFullText.create(this.id, extractFields(this), cb);
+        if (err) {
+            cb(err);
+        } else {
+            var params = extractFields(this);
+            DiskFullText.create(this.id, params, cbWithLog.bind(this, cb));
+        }
     });
 }
 
@@ -40,17 +53,17 @@ Disk.findById = function(id, cb) {
 }
 
 Disk.remove = function(id, cb) {
-  DiskMongo.findById(id).remove(function(err) {
-    if (err) cb(err)
-    else DiskFullText.remove(id, cb);
-  });
+    DiskMongo.findById(id).remove(function(err) {
+        if (err) cb(err)
+        else DiskFullText.remove(id, cbWithLog.bind(this, cb));
+    });
 }
 
 Disk.findOneAndUpdate = function(id, params, cb) {
     DiskMongo.findOneAndUpdate({
         _id: id
     }, params, function(err, data) {
-        DiskFullText.findOneAndUpdate(id, params, cb);
+        DiskFullText.findOneAndUpdate(id, params, cbWithLog.bind(this, cb));
     });
 }
 

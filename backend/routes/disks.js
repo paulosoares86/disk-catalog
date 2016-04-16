@@ -1,7 +1,8 @@
-var _       = require('underscore'),
-  express   = require('express'),
-  Disk      = require('../model/disk'),
-  router    = express.Router();
+var _ = require('underscore');
+var express = require('express');
+var Disk = require('../model/disk');
+var logger = require('../../logger');
+var router = express.Router();
 
 function buildResponse(error, data) {
     if (error && error.errors) {
@@ -12,6 +13,7 @@ function buildResponse(error, data) {
             error: errMsgs
         });
     } else if (error) {
+        logger.error(error);
         this.status(500).send({
             error: error
         });

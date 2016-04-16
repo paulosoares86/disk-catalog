@@ -1,11 +1,12 @@
 TODO: remove unnecessary data from this file
-TODO: review package.json
-TODO: better logging
+TODO: start everything with node app.js
+TODO: change development in logger
 TODO: pagination
 TODO: what happens if some app crashes
 TODO: explain how this scales
 TODO: colocar banco backend pra ambiente de teste
 TODO: usar um lint
+TODO: lembrar que só vai pro elasticsearch com um segundo de atraso
 
 Disk catalog
 ==================
