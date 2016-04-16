@@ -5,18 +5,17 @@ var client = new elasticsearch.Client({
     host: 'localhost:9200'
 });
 
+var indexName = 'disk-collection-' + env;
 var baseQueryObject = {
-    index: 'disk-collection-' + env,
+    index: indexName,
     type: 'disk'
 };
 
 function queryObject(id, params) {
-    var obj = {
+    var obj = params ? _.extend(params, baseQueryObject) : baseQueryObject;
+    return _.extend(obj, {
         id: id
-    };
-    if (params) _.extend(obj, params);
-    _.extend(obj, baseQueryObject);
-    return obj;
+    });
 }
 
 module.exports = {
@@ -29,11 +28,24 @@ module.exports = {
                 }
             }
         };
-        client.search(_.extend(queryObject, baseQueryObject), cb);
+        var q = _.extend(queryObject, baseQueryObject);
+        client.search(q, function(err, data) {
+            if (err) {
+                cb(err);
+                return;
+            }
+            cb(err, {
+                disks: data.hits.hits.map(function(hit) {
+                        return _.extend({
+                            _id: hit._id
+                        }, hit._source);
+                    })
+                });
+        });
     },
 
     findOneAndUpdate: function(id, params, cb) {
-        client.update(queryObject(id, {
+        client.update(queryObject(id.toString(), {
             body: {
                 doc: params
             }
@@ -41,18 +53,18 @@ module.exports = {
     },
 
     remove: function(id, cb) {
-        client.delete(queryObject(id), cb);
+        client.delete(queryObject(id.toString()), cb);
     },
 
     create: function(id, params, cb) {
-        client.create(queryObject(id, {
+        client.create(queryObject(id.toString(), {
             body: params
         }), cb);
     },
 
     removeAll: function(cb) {
         client.indices.delete({
-            index: 'disk-collection'
+            index: indexName
         }, cb);
     }
 }

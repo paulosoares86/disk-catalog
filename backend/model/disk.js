@@ -1,5 +1,4 @@
 var DiskMongo = require('./disk/disk_mongo');
-var logger = require('../../logger');
 var DiskFullText = require('./disk/disk_full_text');
 var _ = require('underscore');
 
@@ -19,22 +18,14 @@ function extractFields(context) {
     }
 }
 
-function cbWithLog(cb, err, data) {
-    if (err) {
-        var error = new Error(err);
-        logger.error(error);
-    }
-    cb(err, data);
-}
-
 Disk.prototype.save = function(cb) {
-    var diskMongo = new DiskMongo(this);
+    var params = extractFields(this);
+    var diskMongo = new DiskMongo(params);
     diskMongo.save(function(err, data) {
         if (err) {
             cb(err);
         } else {
-            var params = extractFields(this);
-            DiskFullText.create(this.id, params, cbWithLog.bind(this, cb));
+            DiskFullText.create(data._id, params, cb);
         }
     });
 }
@@ -55,7 +46,7 @@ Disk.findById = function(id, cb) {
 Disk.remove = function(id, cb) {
     DiskMongo.findById(id).remove(function(err) {
         if (err) cb(err)
-        else DiskFullText.remove(id, cbWithLog.bind(this, cb));
+        else DiskFullText.remove(id, cb);
     });
 }
 
@@ -63,11 +54,11 @@ Disk.findOneAndUpdate = function(id, params, cb) {
     DiskMongo.findOneAndUpdate({
         _id: id
     }, params, function(err, data) {
-        DiskFullText.findOneAndUpdate(id, params, cbWithLog.bind(this, cb));
+        DiskFullText.findOneAndUpdate(id, params, cb);
     });
 }
 
-Disk.fullTextSearch = function(params, cb) {
+Disk.search = function(params, cb) {
     DiskFullText.find(params, cb);
 }
 

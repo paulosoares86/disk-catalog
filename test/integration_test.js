@@ -119,11 +119,11 @@ describe('Disks Endpoint', function() {
         setTimeout(function() {
             superagent
                 .post('http://localhost:3000/disks/search', {
-                    name: 'new album name'
+                    name: 'new name'
                 })
                 .end(function(err, res) {
-                  console.log(res.body)
-                    assert.equal(res.body.disks[0].name, 'new album name')
+                    assert.equal(res.body.disks[0].name, 'new album name');
+                    done();
                 });
         }, 1000);
     });

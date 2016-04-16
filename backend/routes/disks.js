@@ -24,11 +24,6 @@ router.get('/', function(req, res, next) {
     Disk.all(buildResponse.bind(res));
 });
 
-
-router.post('/search', function(req, res, next) {
-    Disk.fullTextSearch(req.body, buildResponse.bind(res));
-});
-
 router.get('/:id', function(req, res, next) {
     Disk.findById(req.params.id, buildResponse.bind(res));
 });
@@ -44,6 +39,10 @@ router.patch('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var disk = new Disk(req.body.disk);
     disk.save(buildResponse.bind(res));
+});
+
+router.post('/search', function(req, res, next) {
+    Disk.search(req.body, buildResponse.bind(res));
 });
 
 module.exports = router;
