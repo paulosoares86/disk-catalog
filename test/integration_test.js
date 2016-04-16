@@ -89,14 +89,14 @@ describe('Disks Endpoint', function() {
 
     it('should remove a disk', function(done) {
         assertListCount(2, function() {
-          getFirstObjectFromList(function(obj) {
-              superagent
-                  .del('http://localhost:3000/disks/' + obj._id)
-                  .end(function(err, res) {
-                      assertListCount(1, done);
-                  });
-          });
-      });
+            getFirstObjectFromList(function(obj) {
+                superagent
+                    .del('http://localhost:3000/disks/' + obj._id)
+                    .end(function(err, res) {
+                        assertListCount(1, done);
+                    });
+            });
+        });
     });
 
     it('should update a disk', function(done) {
@@ -113,6 +113,19 @@ describe('Disks Endpoint', function() {
                     })
                 });
         });
+    });
+
+    it('should find the updated album by name', function(done) {
+        setTimeout(function() {
+            superagent
+                .post('http://localhost:3000/disks/search', {
+                    name: 'new album name'
+                })
+                .end(function(err, res) {
+                  console.log(res.body)
+                    assert.equal(res.body.disks[0].name, 'new album name')
+                });
+        }, 1000);
     });
 
     it('should receive validation errors', function(done) {

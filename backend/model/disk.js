@@ -67,4 +67,8 @@ Disk.findOneAndUpdate = function(id, params, cb) {
     });
 }
 
+Disk.fullTextSearch = function(params, cb) {
+    DiskFullText.find(params, cb);
+}
+
 module.exports = Disk;

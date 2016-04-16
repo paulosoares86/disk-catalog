@@ -14,9 +14,7 @@ function buildResponse(error, data) {
         });
     } else if (error) {
         logger.error(error);
-        this.status(500).send({
-            error: error
-        });
+        this.status(500).send({error: 'Internal error'});
     } else {
         this.send(data || {});
     }
@@ -24,6 +22,11 @@ function buildResponse(error, data) {
 
 router.get('/', function(req, res, next) {
     Disk.all(buildResponse.bind(res));
+});
+
+
+router.post('/search', function(req, res, next) {
+    Disk.fullTextSearch(req.body, buildResponse.bind(res));
 });
 
 router.get('/:id', function(req, res, next) {
