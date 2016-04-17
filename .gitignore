@@ -1,3 +1,7 @@
 backend/node_modules/
+frontend/node_modules/
+frontend/typings/
 node_modules/
 log/
+frontend/app/**.js
+frontend/app/**.js.map
