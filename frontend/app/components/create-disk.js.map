@@ -1,0 +1,1 @@
+{"version":3,"file":"create-disk.js","sourceRoot":"","sources":["create-disk.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;YAUA;gBACI,6BAAoB,YAAyB;oBAAzB,iBAAY,GAAZ,YAAY,CAAa;gBAAI,CAAC;gBAPtD;oBAAC,gBAAS,CAAC;wBACP,QAAQ,EAAE,aAAa;wBACvB,QAAQ,EAAE,sBAAsB;wBAChC,SAAS,EAAE,CAAC,kBAAW,CAAC;qBAC3B,CAAC;;uCAAA;gBAIF,0BAAC;YAAD,CAAC,AAFD,IAEC;YAFD,qDAEC,CAAA"}
