@@ -8,4 +8,8 @@ export class DiskService {
   get() {
     return this._http.get('http://localhost:3000/disks');
   }
+
+  remove(disk) {
+    return this._http.delete('http://localhost:3000/disks/' + disk._id);
+  }
 }

@@ -1,42 +1,42 @@
-import {Component} from 'angular2/core';
-import {DiskService} from './services/disk';
-import {Disk} from './models/disk';
-import {OnInit} from 'angular2/core';
+import { Component }       from 'angular2/core';
+import { DiskService }     from './services/disk';
+import { DisksComponent } from './components/disks';
 
 @Component({
-    selector: 'my-app',
-    template: `
-      <h1>{{title}}</h1>
-      <ul class="disks">
-
-      <div class="row">
-        <div *ngFor="#disk of disks" class="col s12 m4">
-          <div class="card">
-            <div class="card-image">
-              <a href="{{disk.url}}"><img src="images/sample-1.jpg"></a>
-            </div>
-            <div class="card-content">
-              <p><b>Name: </b>{{disk.name}}</p>
-              <p><b>Author: </b>{{disk.author}}</p>
-              <p><b>Description: </b>{{disk.description}}</p>
-            </div>
-            <div class="card-action">
-              <a href="{{disk.url}}">Only \${{disk.price}}</a>
-            </div>
+  selector: 'my-app',
+  template: `
+    <nav>
+      <div class="nav-wrapper blue darken-4">
+        <div class="container">
+        <a href="/" class="brand-logo">DiskCollection</a>
+        <div class="row right">
+          <div class="col s8">
+            <form>
+              <div class="input-field">
+                <input id="search" type="search" />
+                <label for="search"><i class="material-icons">search</i></label>
+              </div>
+            </form>
+          </div>
+          <div class="col s4">
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="/">List</a></li>
+              <li><a href="/create">Create</a></li>
+            </ul>
           </div>
         </div>
+        </div>
       </div>
-    `,
-    providers: [DiskService]
+    </nav>
+    <div class="container">
+      <disks></disks>
+    </div>
+  `,
+  directives: [DisksComponent],
+  providers: [
+    DiskService
+  ]
 })
-
-export class AppComponent implements OnInit {
-    title = 'My Disk Collection';
-    public disks: Disk[];
-
-    constructor(private _diskService: DiskService) { }
-
-    ngOnInit() {
-      this._diskService.get().subscribe(disks => this.disks = disks.json());
-    }
+export class AppComponent {
+  title = 'Tour of Heroes';
 }
