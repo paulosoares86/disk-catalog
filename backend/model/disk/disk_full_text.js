@@ -45,6 +45,7 @@ module.exports = {
     },
 
     findOneAndUpdate: function(id, params, cb) {
+        if (params._id) delete params._id;
         client.update(queryObject(id.toString(), {
             body: {
                 doc: params

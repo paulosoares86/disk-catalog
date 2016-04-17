@@ -99,14 +99,15 @@ describe('Disks Endpoint', function() {
         });
     });
 
-    it('should update a disk', function(done) {
+    it('should update a disk and ignore id', function(done) {
         getFirstObjectFromList(function(obj) {
             var newName = 'new album name';
             superagent
                 .patch('http://localhost:3000/disks/' + obj._id, {
-                    name: newName
+                    disk: {name: newName, id: obj._id}
                 })
                 .end(function(err, res) {
+                    assert.ifError(err);
                     getFirstObjectFromList(function(obj) {
                         assert.equal(obj.name, newName);
                         done();
@@ -119,7 +120,7 @@ describe('Disks Endpoint', function() {
         setTimeout(function() {
             superagent
                 .post('http://localhost:3000/disks/search', {
-                    name: 'new name'
+                    disk: {name: 'new name'}
                 })
                 .end(function(err, res) {
                     assert.equal(res.body.disks[0].name, 'new album name');
@@ -136,7 +137,8 @@ describe('Disks Endpoint', function() {
             .end(function(err, res) {
                 assert.equal(res.status, status.BAD_REQUEST);
                 assert.deepEqual(res.body, {
-                    error: ['Name is required!']
+                    validationErrors: ['Name is required!'],
+                    error: 'Invalid record'
                 });
                 done();
             });
