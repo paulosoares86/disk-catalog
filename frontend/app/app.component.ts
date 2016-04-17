@@ -8,17 +8,28 @@ import {OnInit} from 'angular2/core';
     template: `
       <h1>{{title}}</h1>
       <ul class="disks">
-        <li *ngFor="#disk of disks">
-          <div><label>name: </label>{{disk.name}}</div>
-          <div><label>author: </label>{{disk.author}}</div>
-          <div><label>price: </label>{{disk.price}}</div>
-          <div><label>description: </label>{{disk.description}}</div>
-          <br>
-        </li>
-      </ul>
+
+      <div class="row">
+        <div *ngFor="#disk of disks" class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <a href="{{disk.url}}"><img src="images/sample-1.jpg"></a>
+            </div>
+            <div class="card-content">
+              <p><b>Name: </b>{{disk.name}}</p>
+              <p><b>Author: </b>{{disk.author}}</p>
+              <p><b>Description: </b>{{disk.description}}</p>
+            </div>
+            <div class="card-action">
+              <a href="{{disk.url}}">Only \${{disk.price}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
     `,
     providers: [DiskService]
 })
+
 export class AppComponent implements OnInit {
     title = 'My Disk Collection';
     public disks: Disk[];
