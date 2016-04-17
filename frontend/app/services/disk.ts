@@ -1,24 +1,38 @@
-import {Http} from 'angular2/http';
+import {Http, Headers} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class DiskService {
-  constructor(private _http: Http) {}
+    private _headers: Headers;
 
-  get() {
-    return this._http.get('http://localhost:3000/disks');
-  }
+    constructor(private _http: Http) {
+        this._headers = new Headers();
+        this._headers.append('Content-Type', 'application/json');
+    }
 
-  remove(disk) {
-    return this._http.delete(`http://localhost:3000/disks/${disk._id}`);
-  }
+    get() {
+        return this._http.get('http://localhost:3000/disks');
+    }
 
-  show(id) {
-    return this._http.get(`http://localhost:3000/disks/${id}`);
-  }
+    remove(disk) {
+        return this._http.delete(`http://localhost:3000/disks/${disk._id}`);
+    }
 
-  update(disk) {
-    return this._http.patch(`http://localhost:3000/disks/${disk._id}`, disk);
-  }
+    show(id) {
+        return this._http.get(`http://localhost:3000/disks/${id}`);
+    }
 
+    update(disk) {
+        var payload = JSON.stringify({ disk: disk });
+        return this._http.patch(`http://localhost:3000/disks/${disk._id}`, payload, {
+            headers: this._headers
+        });
+    }
+
+    post(disk) {
+        var payload = JSON.stringify({ disk: disk });
+        return this._http.post('http://localhost:3000/disks/', payload, {
+            headers: this._headers
+        });
+    }
 }

@@ -24,6 +24,8 @@ System.register(['angular2/http', 'angular2/core'], function(exports_1, context_
             DiskService = (function () {
                 function DiskService(_http) {
                     this._http = _http;
+                    this._headers = new http_1.Headers();
+                    this._headers.append('Content-Type', 'application/json');
                 }
                 DiskService.prototype.get = function () {
                     return this._http.get('http://localhost:3000/disks');
@@ -35,7 +37,16 @@ System.register(['angular2/http', 'angular2/core'], function(exports_1, context_
                     return this._http.get("http://localhost:3000/disks/" + id);
                 };
                 DiskService.prototype.update = function (disk) {
-                    return this._http.patch("http://localhost:3000/disks/" + disk._id, disk);
+                    var payload = JSON.stringify({ disk: disk });
+                    return this._http.patch("http://localhost:3000/disks/" + disk._id, payload, {
+                        headers: this._headers
+                    });
+                };
+                DiskService.prototype.post = function (disk) {
+                    var payload = JSON.stringify({ disk: disk });
+                    return this._http.post('http://localhost:3000/disks/', payload, {
+                        headers: this._headers
+                    });
                 };
                 DiskService = __decorate([
                     core_1.Injectable(), 

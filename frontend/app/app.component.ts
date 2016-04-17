@@ -48,5 +48,4 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router'
     ]
 })
 export class AppComponent {
-    title = 'Tour of Heroes';
 }

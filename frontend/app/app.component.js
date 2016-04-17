@@ -35,7 +35,6 @@ System.register(['angular2/core', './services/disk', './components/create-disk',
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.title = 'Tour of Heroes';
                 }
                 AppComponent = __decorate([
                     router_1.RouteConfig([
