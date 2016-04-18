@@ -48,6 +48,12 @@ System.register(['angular2/http', 'angular2/core'], function(exports_1, context_
                         headers: this._headers
                     });
                 };
+                DiskService.prototype.search = function (params) {
+                    var payload = JSON.stringify({ disk: params });
+                    return this._http.post('http://localhost:3000/disks/search', payload, {
+                        headers: this._headers
+                    });
+                };
                 DiskService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])

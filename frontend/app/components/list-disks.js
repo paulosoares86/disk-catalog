@@ -29,6 +29,7 @@ System.register(['angular2/core', '../services/disk', 'angular2/router'], functi
                     this._router = _router;
                     this._diskService = _diskService;
                     this.title = 'My Disk Collection';
+                    this.disks = [];
                 }
                 ListDisksComponent.prototype.remove = function (disk) {
                     var _this = this;
@@ -48,7 +49,7 @@ System.register(['angular2/core', '../services/disk', 'angular2/router'], functi
                 ListDisksComponent = __decorate([
                     core_1.Component({
                         selector: 'disks',
-                        template: "\n      <div class=\"row\">\n        <div *ngFor=\"#disk of disks\" class=\"col s12 m4\">\n          <div class=\"card\">\n            <div class=\"card-image\">\n              <a href=\"{{disk.url}}\"><img src=\"{{disk.image}}\" alt=\"disk image\"></a>\n            </div>\n            <div class=\"card-content\">\n              <p><b>Name: </b>{{disk.name}}</p>\n              <p><b>Author: </b>{{disk.author}}</p>\n            </div>\n            <div class=\"card-action\">\n            <button class=\"btn\" (click)=\"editBtnClick(disk)\">\n              <i class=\"large material-icons\">mode_edit</i>\n            </button>\n            <button class=\"btn red darken-4 center\" (click)=\"remove(disk)\">\n              <span class=\"remove-icon\">&times;</span>\n            </button>\n          </div>\n        </div>\n      </div>\n    ",
+                        templateUrl: 'app/templates/disks/index.html',
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
                             router_1.ROUTER_PROVIDERS,

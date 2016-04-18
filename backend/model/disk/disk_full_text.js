@@ -22,11 +22,7 @@ module.exports = {
 
     find: function(params, cb) {
         var queryObject = {
-            body: {
-                query: {
-                    match: params
-                }
-            }
+          "query": {query_string: params.query}
         };
         var q = _.extend(queryObject, baseQueryObject);
         client.search(q, function(err, data) {

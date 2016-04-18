@@ -8,28 +8,7 @@ import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2
 
 @Component({
     selector: 'disks',
-    template: `
-      <div class="row">
-        <div *ngFor="#disk of disks" class="col s12 m4">
-          <div class="card">
-            <div class="card-image">
-              <a href="{{disk.url}}"><img src="{{disk.image}}" alt="disk image"></a>
-            </div>
-            <div class="card-content">
-              <p><b>Name: </b>{{disk.name}}</p>
-              <p><b>Author: </b>{{disk.author}}</p>
-            </div>
-            <div class="card-action">
-            <button class="btn" (click)="editBtnClick(disk)">
-              <i class="large material-icons">mode_edit</i>
-            </button>
-            <button class="btn red darken-4 center" (click)="remove(disk)">
-              <span class="remove-icon">&times;</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    `,
+    templateUrl: 'app/templates/disks/index.html',
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS,
@@ -39,7 +18,7 @@ import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2
 
 export class ListDisksComponent implements OnInit {
     title = 'My Disk Collection';
-    public disks: Disk[];
+    public disks: Disk[] = [];
 
     public remove(disk: Disk) {
         this._diskService.remove(disk).subscribe(
