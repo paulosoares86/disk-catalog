@@ -5,3 +5,5 @@ node_modules/
 log/
 frontend/app/**.js
 frontend/app/**.js.map
+frontend/app/components/**.js
+frontend/app/components/**.js.map
