@@ -13,17 +13,13 @@ var baseQueryObject = {
 
 function queryObject(id, params) {
     var obj = params ? _.extend(params, baseQueryObject) : baseQueryObject;
-    return _.extend(obj, {
-        id: id
-    });
+    return _.extend({id: id}, obj);
 }
 
 module.exports = {
 
     find: function(params, cb) {
-        var queryObject = {
-          "query": {query_string: params.query}
-        };
+        var queryObject = {"q": params.query};
         var q = _.extend(queryObject, baseQueryObject);
         client.search(q, function(err, data) {
             if (err) {

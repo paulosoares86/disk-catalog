@@ -25,7 +25,7 @@ describe('Search', function() {
 
     it('should find one created disk', function(done) {
         Disk.search({
-            query: 'Under the Bridge'
+            query: 'bridge'
         }, function(err, data) {
             assert.ifError(err);
             assert.equal(data.disks.length, 1);
@@ -39,14 +39,13 @@ describe('Search', function() {
             query: 'Led Zeppelin'
         }, function(err, data) {
             assert.ifError(err);
-            console.log(data.disks)
-            // assert.equal(data.disks.length, 1);
+            assert.equal(data.disks.length, 1);
             assert.equal(data.disks[0].name, 'Led Zeppelin');
             done();
         });
     });
 
-    it('should find two created disk2', function(done) {
+    it('should find two created disks', function(done) {
         Disk.search({
             query: 'text describes'
         }, function(err, data) {

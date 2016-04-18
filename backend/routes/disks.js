@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/search', function(req, res, next) {
-    Disk.search(req.body.disk, buildResponse.bind(res));
+    Disk.search(req.body, buildResponse.bind(res));
 });
 
 module.exports = router;
