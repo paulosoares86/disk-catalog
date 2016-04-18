@@ -1,15 +1,15 @@
 <h2>
-  Disk Details <span class="right">
-    <a *ngIf="!isEditing" class="btn-floating btn-large waves-effect waves-light teal darken-4" (click)="startEditing()">
-      <i class="material-icons">mode_edit</i>
-    </a>
+  Disk Details <span style="float: right;">
+    <button *ngIf="!isEditing" class="btn btn-primary" (click)="startEditing()">
+      Edit
+    </button>
 
-    <a *ngIf="isEditing" class="btn-floating btn-large waves-effect waves-light red darken-4 center" (click)="cancelEditing()">
-      <span class="remove-icon">&times;</span>
-    </a>
+    <button *ngIf="isEditing" class="btn btn-danger" (click)="cancelEditing()">
+      Cancel
+    </button>
 
-    <a *ngIf="isEditing" class="btn-floating btn-large waves-effect waves-light blue darken-4 center" (click)="save()">
-      <i class="material-icons">done</i>
+    <a *ngIf="isEditing" class="btn btn-success" (click)="save()">
+      Save
     </a>
   </span>
 </h2>
@@ -19,45 +19,35 @@
 <img src="{{disk.image}}" alt="disk image">
 <br>
 <br>
-<h5>
-  <span *ngIf="!isEditing">
-    <b>Name: </b> {{disk.name}}
-  </span>
-  <span *ngIf="isEditing">
-    <b>Name: </b>
-    <div class="row">
-      <div class="col s8">
-        <input type="text" [(ngModel)]="disk.name"/>
-      </div>
+
+<form>
+  <div class="form-group row">
+    <label for="name_input" class="col-sm-2 form-control-label"><b>Name: </b></label>
+    <div class="col-sm-10">
+      <input *ngIf="isEditing" type="text" class="form-control" id="name_input" [(ngModel)]="disk.name">
+      <p *ngIf="!isEditing">{{disk.name}}</p>
     </div>
-  </span>
-</h5>
-<br>
-<h5>
-  <span *ngIf="!isEditing">
-    <b>Author: </b> {{disk.author}}
-  </span>
-  <span *ngIf="isEditing">
-    <b>Author: </b>
-    <div class="row">
-      <div class="col s8">
-        <input type="text" [(ngModel)]="disk.author"/>
-      </div>
+  </div>
+  <div class="form-group row">
+    <label for="author_input" class="col-sm-2 form-control-label"><b>Author: </b></label>
+    <div class="col-sm-10">
+      <input *ngIf="isEditing" type="text" class="form-control" id="author_input" [(ngModel)]="disk.author">
+      <p *ngIf="!isEditing">{{disk.author}}</p>
     </div>
-  </span>
-</h5>
-<br>
-<h5>
-  <span *ngIf="!isEditing">
-    <b>Description: </b> {{disk.description}}
-  </span>
-  <span *ngIf="isEditing">
-    <b>Description: </b>
-    <div class="row">
-      <div class="col s8">
-        <textarea type="text" [(ngModel)]="disk.description" class="materialize-textarea">
-        </textarea>
-      </div>
+  </div>
+  <div class="form-group row">
+    <label for="price_input" class="col-sm-2 form-control-label"><b>Price: </b></label>
+    <div class="col-sm-10">
+      <input *ngIf="isEditing" type="number" class="form-control" id="price_input" [(ngModel)]="disk.price">
+      <p *ngIf="!isEditing">{{disk.price}}</p>
     </div>
-  </span>
-</h5>
+  </div>
+  <div class="form-group row">
+    <label for="description_input" class="col-sm-2 form-control-label"><b>Description: </b></label>
+    <div class="col-sm-10">
+      <textarea *ngIf="isEditing" type="text" class="form-control" id="description_input" [(ngModel)]="disk.description">
+      </textarea>
+      <p *ngIf="!isEditing">{{disk.description}}</p>
+    </div>
+  </div>
+</form>
