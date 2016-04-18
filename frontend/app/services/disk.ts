@@ -37,7 +37,7 @@ export class DiskService {
     }
 
     search(params) {
-        var payload = JSON.stringify({ disk: params });
+        var payload = JSON.stringify(params);
         return this._http.post('http://localhost:3000/disks/search', payload, {
             headers: this._headers
         });

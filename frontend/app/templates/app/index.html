@@ -1,27 +1,21 @@
-<nav>
-    <div class="nav-wrapper blue darken-4">
-        <div class="container">
-            <a href="/" class="brand-logo">DiskCollection</a>
-            <div class="row">
-              <div class="col s4 offset-s3">
-                <form (ngSubmit)="onSubmit()">
-                    <div class="input-field">
-                        <input id="search" type="search" [(ngModel)]="query" />
-                        <label for="search"><i class="material-icons">search</i></label>
-                    </div>
-                </form>
-              </div>
-            </div>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a [routerLink]="['Disk-List']">List</a></li>
-                <li><a [routerLink]="['Disk-Create']">Create</a></li>
-            </ul>
-        </div>
+<nav class="navbar navbar-light bg-faded">
+    <div class="container nav-wrapper">
+        <a class="navbar-brand" href="#">DiskCollection</a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['Disk-List']">List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['Disk-Create']">Create</a>
+            </li>
+        </ul>
+        <form class="form-inline pull-xs-right" (ngSubmit)="onSubmit()">
+            <input class="form-control" type="text" placeholder="Search" [(ngModel)]="query">
+            <button class="btn btn-success-outline" type="submit">Search</button>
+        </form>
     </div>
+
 </nav>
-
-
-
 
 <div class="container">
     <router-outlet></router-outlet>

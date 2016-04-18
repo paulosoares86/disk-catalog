@@ -1,22 +1,8 @@
 <h2>{{title}}</h2>
 <br>
-<div *ngIf="disks" class="row">
-  <div *ngFor="#disk of disks" class="col s12 m4">
-    <div class="card">
-      <div class="card-image">
-        <a href="{{disk.url}}"><img src="{{disk.image}}" alt="disk image"></a>
-      </div>
-      <div class="card-content">
-        <p><b>Name: </b>{{disk.name}}</p>
-        <p><b>Author: </b>{{disk.author}}</p>
-      </div>
-      <div class="card-action">
-      <button class="btn" (click)="editBtnClick(disk)">
-        <i class="large material-icons">mode_edit</i>
-      </button>
-      <button class="btn red darken-4 center" (click)="remove(disk)">
-        <span class="remove-icon">&times;</span>
-      </button>
+
+<div class="container">
+    <div class="row">
+      <disk-item *ngFor="#disk of disks" [disk]="disk" [collection]="disks" class="card col-md-4"></disk-item>
     </div>
-  </div>
 </div>

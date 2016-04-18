@@ -1,0 +1,44 @@
+<h2>Create a Disk</h2>
+<br>
+
+<div *ngFor="#error of validationErrors" class="alert alert-danger alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>Validation Error!</strong> {{error}}.
+</div>
+
+<div class="container">
+
+    <form class="col s12" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <fieldset class="form-group">
+                <label data-error="Name is required" data-success="ok" for="name">Name</label>
+                <input required="required" id="name" type="text" class="form-control" [(ngModel)]="model.name">
+            </fieldset>
+        </div>
+
+        <div class="row">
+            <fieldset class="form-group">
+                <label data-error="Author is required" data-success="ok" for="author">Author</label>
+                <input required="required" id="author" type="text" class="form-control" [(ngModel)]="model.author">
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="form-group">
+                <label data-error="Price is required" data-success="ok" for="price">Price</label>
+                <input required="required" id="price" type="text" class="form-control" [(ngModel)]="model.price">
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="form-group">
+                <label data-error="Description is required" data-success="ok" for="description">Description</label>
+                <textarea required="required" id="description" type="number" class="form-control" [(ngModel)]="model.description"></textarea>
+            </fieldset>
+        </div>
+
+        <br>
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-danger" (click)="goBack()">Cancel</button>
+    </form>
+</div>

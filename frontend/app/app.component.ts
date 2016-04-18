@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {DiskService} from './services/disk';
-import {CreateDiskComponent} from './components/create-disk';
-import {EditDiskComponent} from './components/edit-disk';
-import {ListDisksComponent} from './components/list-disks';
-import {SearchDiskComponent} from './components/search-disks';
+import {CreateDiskComponent} from './components/disk/create';
+import {EditDiskComponent} from './components/disk/edit';
+import {ListDisksComponent} from './components/disk/list';
+import {SearchDiskComponent} from './components/disk/search';
 import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 
 @RouteConfig([
@@ -26,9 +26,7 @@ export class AppComponent {
 
     onSubmit() {
         if (!this.query) return;
-        this._router.navigate(['Disk-Search', { query: this.query }])
-            .then(res => window.location.reload())
-            .catch(res => console.log(res));
+        this._router.navigate(['Disk-Search', { query: this.query }]);
     }
 
     constructor(private _router: Router) { }
