@@ -13,21 +13,13 @@ var baseQueryObject = {
 
 function queryObject(id, params) {
     var obj = params ? _.extend(params, baseQueryObject) : baseQueryObject;
-    return _.extend(obj, {
-        id: id
-    });
+    return _.extend({id: id}, obj);
 }
 
 module.exports = {
 
     find: function(params, cb) {
-        var queryObject = {
-            body: {
-                query: {
-                    match: params
-                }
-            }
-        };
+        var queryObject = {"q": params.query};
         var q = _.extend(queryObject, baseQueryObject);
         client.search(q, function(err, data) {
             if (err) {
@@ -45,6 +37,7 @@ module.exports = {
     },
 
     findOneAndUpdate: function(id, params, cb) {
+        if (params._id) delete params._id;
         client.update(queryObject(id.toString(), {
             body: {
                 doc: params

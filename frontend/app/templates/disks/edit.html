@@ -1,0 +1,63 @@
+<h2>
+  Disk Details <span class="right">
+    <a *ngIf="!isEditing" class="btn-floating btn-large waves-effect waves-light teal darken-4" (click)="startEditing()">
+      <i class="material-icons">mode_edit</i>
+    </a>
+
+    <a *ngIf="isEditing" class="btn-floating btn-large waves-effect waves-light red darken-4 center" (click)="cancelEditing()">
+      <span class="remove-icon">&times;</span>
+    </a>
+
+    <a *ngIf="isEditing" class="btn-floating btn-large waves-effect waves-light blue darken-4 center" (click)="save()">
+      <i class="material-icons">done</i>
+    </a>
+  </span>
+</h2>
+
+<br>
+<br>
+<img src="{{disk.image}}" alt="disk image">
+<br>
+<br>
+<h5>
+  <span *ngIf="!isEditing">
+    <b>Name: </b> {{disk.name}}
+  </span>
+  <span *ngIf="isEditing">
+    <b>Name: </b>
+    <div class="row">
+      <div class="col s8">
+        <input type="text" [(ngModel)]="disk.name"/>
+      </div>
+    </div>
+  </span>
+</h5>
+<br>
+<h5>
+  <span *ngIf="!isEditing">
+    <b>Author: </b> {{disk.author}}
+  </span>
+  <span *ngIf="isEditing">
+    <b>Author: </b>
+    <div class="row">
+      <div class="col s8">
+        <input type="text" [(ngModel)]="disk.author"/>
+      </div>
+    </div>
+  </span>
+</h5>
+<br>
+<h5>
+  <span *ngIf="!isEditing">
+    <b>Description: </b> {{disk.description}}
+  </span>
+  <span *ngIf="isEditing">
+    <b>Description: </b>
+    <div class="row">
+      <div class="col s8">
+        <textarea type="text" [(ngModel)]="disk.description" class="materialize-textarea">
+        </textarea>
+      </div>
+    </div>
+  </span>
+</h5>

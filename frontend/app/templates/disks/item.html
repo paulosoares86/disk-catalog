@@ -1,0 +1,10 @@
+<a href="{{disk.url}}" (click)="editBtnClick(disk)">
+    <img src="{{disk.image}}" alt="disk image">
+</a>
+<div class="card-block">
+    <h4 class="card-title">{{disk.name}}</h4>
+    <p><b>Author: </b>{{disk.author}}</p>
+    <p><b>Description: </b>{{disk.description}}</p>
+    <button class="btn btn-success" (click)="editBtnClick(disk)">Edit</button>
+    <button class="btn btn-danger" (click)="remove(disk)" [disabled]="!canRemove">Remove</button>
+</div>

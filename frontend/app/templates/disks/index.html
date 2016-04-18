@@ -1,0 +1,8 @@
+<h2>{{title}}</h2>
+<br>
+
+<div class="container">
+    <div class="row">
+      <disk-item *ngFor="#disk of disks" [disk]="disk" [collection]="disks" class="card col-md-4"></disk-item>
+    </div>
+</div>

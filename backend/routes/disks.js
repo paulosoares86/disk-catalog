@@ -10,7 +10,8 @@ function buildResponse(error, data) {
             return e.message;
         });
         this.status(400).send({
-            error: errMsgs
+            validationErrors: errMsgs,
+            error: 'Invalid record'
         });
     } else if (error) {
         logger.error(error);
@@ -33,7 +34,7 @@ router.delete('/:id', function(req, res, next) {
 });
 
 router.patch('/:id', function(req, res, next) {
-    Disk.findOneAndUpdate(req.params.id, req.body, buildResponse.bind(res));
+    Disk.findOneAndUpdate(req.params.id, req.body.disk, buildResponse.bind(res));
 });
 
 router.post('/', function(req, res, next) {

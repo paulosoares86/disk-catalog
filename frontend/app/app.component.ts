@@ -1,42 +1,34 @@
-import { Component }       from 'angular2/core';
-import { DiskService }     from './services/disk';
-import { DisksComponent } from './components/disks';
 
+import {Component} from 'angular2/core';
+import {DiskService} from './services/disk';
+import {CreateDiskComponent} from './components/disk/create';
+import {EditDiskComponent} from './components/disk/edit';
+import {ListDisksComponent} from './components/disk/list';
+import {SearchDiskComponent} from './components/disk/search';
+import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+
+@RouteConfig([
+    { path: '/disk-list', name: 'Disk-List', component: ListDisksComponent, useAsDefault: true },
+    { path: '/disk-create', name: 'Disk-Create', component: CreateDiskComponent },
+    { path: '/disk-search', name: 'Disk-Search', component: SearchDiskComponent },
+    { path: '/disk-edit/:id', name: 'Disk-Edit', component: EditDiskComponent }
+])
 @Component({
-  selector: 'my-app',
-  template: `
-    <nav>
-      <div class="nav-wrapper blue darken-4">
-        <div class="container">
-        <a href="/" class="brand-logo">DiskCollection</a>
-        <div class="row right">
-          <div class="col s8">
-            <form>
-              <div class="input-field">
-                <input id="search" type="search" />
-                <label for="search"><i class="material-icons">search</i></label>
-              </div>
-            </form>
-          </div>
-          <div class="col s4">
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="/">List</a></li>
-              <li><a href="/create">Create</a></li>
-            </ul>
-          </div>
-        </div>
-        </div>
-      </div>
-    </nav>
-    <div class="container">
-      <disks></disks>
-    </div>
-  `,
-  directives: [DisksComponent],
-  providers: [
-    DiskService
-  ]
+    selector: 'my-app',
+    templateUrl: 'app/templates/app/index.html',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [
+        ROUTER_PROVIDERS,
+        DiskService
+    ]
 })
 export class AppComponent {
-  title = 'Tour of Heroes';
+    public query: String;
+
+    onSubmit() {
+        if (!this.query) return;
+        this._router.navigate(['Disk-Search', { query: this.query }]);
+    }
+
+    constructor(private _router: Router) { }
 }
