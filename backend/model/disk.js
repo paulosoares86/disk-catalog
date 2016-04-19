@@ -53,8 +53,10 @@ Disk.remove = function(id, cb) {
 Disk.findOneAndUpdate = function(id, params, cb) {
     DiskMongo.findOneAndUpdate({
         _id: id
-    }, params, function(err, data) {
-        DiskFullText.findOneAndUpdate(id, params, cb);
+    }, params, function(err, mongoData) {
+        DiskFullText.findOneAndUpdate(id, params, function(err, data) {
+            cb(err, mongoData);
+        });
     });
 }
 

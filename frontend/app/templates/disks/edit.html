@@ -21,7 +21,7 @@
   <div class="form-group row">
     <div class="col-sm-10">
       <img src="{{disk.image | imageFromBackend}}" alt="Disk Image"/><br><br>
-      <input *ngIf="isEditing" type="file" id="image_input">
+      <input *ngIf="isEditing" type="file" (change)="fileUploader.fileChangeEvent($event)" placeholder="Select file..." />
     </div>
   </div>
 
