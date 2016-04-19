@@ -3,13 +3,15 @@ import {DiskService} from '../../services/disk';
 import {Disk} from '../../models/disk';
 import {CreateDiskComponent} from './create';
 import {EditDiskComponent} from './edit';
+import {ImageFromBackendPipe} from '../../pipes/image-from-backend';
 import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 
 @Component({
     selector: 'disk-item',
     templateUrl: 'app/templates/disks/item.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS, DiskService]
+    providers: [ROUTER_PROVIDERS, DiskService],
+    pipes: [ImageFromBackendPipe]
 })
 export class DiskItemComponent {
     @Input() disk: Disk;

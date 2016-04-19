@@ -2,57 +2,45 @@
     "first": {
         "name": "Led Zeppelin",
         "author": "Led Zeppelin",
-        "price": 12.45,
+        "image": 12.45,
         "description": "some text that describes the disk"
     },
     "second": {
         "name": "Under the Bridge",
         "author": "Red Hot Chilli Peppers",
-        "price": 42.19,
+        "image": 42.19,
         "description": "some text that describes the disk"
     },
     "withoutName": {
         "author": "Red Hot Chilli Peppers",
-        "price": 42.19,
+        "image": 42.19,
         "description": "some text that describes the disk"
     },
     "withEmptyName": {
         "name": "",
         "author": "Red Hot Chilli Peppers",
-        "price": 42.19,
+        "image": 42.19,
         "description": "some text that describes the disk"
     },
     "withoutAuthor": {
         "name": "Red Hot Chilli Peppers",
-        "price": 42.19,
+        "image": 42.19,
         "description": "some text that describes the disk"
     },
     "withEmptyAuthor": {
         "name": "Red Hot Chilli Peppers",
         "author": "",
-        "price": 42.19,
+        "image": 42.19,
         "description": "some text that describes the disk"
     },
-    "withoutPrice": {
+    "withoutImage": {
         "author": "Red Hot Chilli Peppers",
         "name": "Red Hot Chilli Peppers",
-        "description": "some text that describes the disk"
-    },
-    "withInvalidPrice": {
-        "name": "Red Hot Chilli Peppers",
-        "author": "Red Hot Chilli Peppers",
-        "price": 0.00001,
-        "description": "some text that describes the disk"
-    },
-    "withLowPrice": {
-        "name": "Red Hot Chilli Peppers",
-        "author": "Red Hot Chilli Peppers",
-        "price": 0.01,
         "description": "some text that describes the disk"
     },
     "withoutDescription": {
       "name": "Red Hot Chilli Peppers",
       "author": "Red Hot Chilli Peppers",
-      "price": 12.03
+      "image": 12.03
     }
 }

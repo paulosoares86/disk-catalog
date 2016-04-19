@@ -5,7 +5,7 @@ var _ = require('underscore');
 var Disk = function(params) {
     this.name = params.name;
     this.author = params.author;
-    this.price = params.price;
+    this.image = params.image;
     this.description = params.description;
 }
 
@@ -13,7 +13,7 @@ function extractFields(context) {
     return {
         name: context.name,
         author: context.author,
-        price: context.price,
+        image: context.image,
         description: context.description
     }
 }

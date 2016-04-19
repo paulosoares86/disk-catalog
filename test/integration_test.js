@@ -81,7 +81,7 @@ describe('Disks Endpoint', function() {
                     assert.ifError(err);
                     assert.equal(res.status, status.OK);
                     assert.equal(res.body.name, obj.name);
-                    assert.equal(res.body.price, obj.price);
+                    assert.equal(res.body.image, obj.image);
                     done();
                 });
         });

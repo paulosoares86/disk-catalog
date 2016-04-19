@@ -1,6 +1,6 @@
 export class Disk {
     name: String;
-    price: Number;
+    image: String;
     author: String;
     description: String;
 }

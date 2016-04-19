@@ -3,11 +3,13 @@ import {DiskService} from '../../services/disk';
 import {Disk} from '../../models/disk';
 import {OnInit} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
+import {ImageFromBackendPipe} from '../../pipes/image-from-backend';
 
 @Component({
     selector: 'edit-disk',
     templateUrl: 'app/templates/disks/edit.html',
-    providers: [DiskService]
+    providers: [DiskService],
+    pipes: [ImageFromBackendPipe]
 })
 
 export class EditDiskComponent implements OnInit {

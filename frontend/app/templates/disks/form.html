@@ -2,15 +2,23 @@
 <br>
 
 <div *ngFor="#error of validationErrors" class="alert alert-danger alert-dismissible fade in" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <strong>Validation Error!</strong> {{error}}.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Validation Error: </strong> {{error}}.
 </div>
 
 <div class="container">
 
     <form class="col s12" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+            <fieldset class="form-group">
+                <input type="file" (change)="fileChangeEvent($event)" placeholder="Select file..." />
+                <br>
+            </fieldset>
+        </div>
+
         <div class="row">
             <fieldset class="form-group">
                 <label data-error="Name is required" data-success="ok" for="name">Name</label>
@@ -24,12 +32,7 @@
                 <input required="required" id="author" type="text" class="form-control" [(ngModel)]="model.author">
             </fieldset>
         </div>
-        <div class="row">
-            <fieldset class="form-group">
-                <label data-error="Price is required" data-success="ok" for="price">Price</label>
-                <input required="required" id="price" type="text" class="form-control" [(ngModel)]="model.price">
-            </fieldset>
-        </div>
+
         <div class="row">
             <fieldset class="form-group">
                 <label data-error="Description is required" data-success="ok" for="description">Description</label>

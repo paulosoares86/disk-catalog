@@ -11,10 +11,9 @@ var Disk = mongoose.model('Disk', {
         type: String,
         required: [true, 'Author is required!']
     },
-    price: {
-        type: Number,
-        required: [true, 'Price is required!'],
-        min: [0.01, 'Price should be at least 0.01']
+    image: {
+        type: String,
+        required: [true, 'Image is required!']
     },
     description: {
         type: String,

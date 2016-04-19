@@ -1,5 +1,5 @@
 <a href="{{disk.url}}" (click)="editBtnClick(disk)">
-    <img src="{{disk.image}}" alt="disk image">
+    <img src="{{disk.image | imageFromBackend }}" alt="disk image" class="card-image">
 </a>
 <div class="card-block">
     <h4 class="card-title">{{disk.name}}</h4>
