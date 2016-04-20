@@ -3,7 +3,9 @@ var Disk = require('../backend/model/disk');
 var superagent = require('superagent');
 var server = require('../backend/bin/www');
 var status = require('http-status');
-var disks = require('./fixtures/disks.json')
+var disks = require('./fixtures/disks.json');
+var config = require('../config/config');
+var _ = require('underscore');
 
 function assertListCount(total, cb) {
     superagent
@@ -11,7 +13,7 @@ function assertListCount(total, cb) {
         .end(function(err, res) {
             assert.ifError(err);
             assert.equal(res.status, status.OK);
-            assert.equal(res.body.length, total);
+            assert.equal(res.body.disks.length, total);
             cb();
         });
 }
@@ -22,15 +24,15 @@ function getFirstObjectFromList(cb) {
         .end(function(err, res) {
             assert.ifError(err);
             assert.equal(res.status, status.OK);
-            var firstObject = res.body[0];
+            var firstObject = res.body.disks[0];
             cb(firstObject);
         });
 }
 
 describe('Disks Endpoint', function() {
     before(function(done) {
-        Disk.all(function(err, data) {
-            if (data && data.length > 0) Disk.removeAll();
+        Disk.all(1, function(err, data) {
+            if (data && data.disks.length > 0) Disk.removeAll();
             done();
         });
     });
@@ -65,7 +67,7 @@ describe('Disks Endpoint', function() {
             .end(function(err, res) {
                 assert.ifError(err);
                 assert.equal(res.status, status.OK);
-                var obj = res.body[0];
+                var obj = res.body.disks[0];
                 delete obj._id;
                 delete obj.__v;
                 assert.deepEqual(obj, disks.first);
@@ -104,7 +106,10 @@ describe('Disks Endpoint', function() {
             var newName = 'new album name';
             superagent
                 .patch('http://localhost:3000/disks/' + obj._id, {
-                    disk: {name: newName, id: obj._id}
+                    disk: {
+                        name: newName,
+                        id: obj._id
+                    }
                 })
                 .end(function(err, res) {
                     assert.ifError(err);
@@ -142,5 +147,51 @@ describe('Disks Endpoint', function() {
                 });
                 done();
             });
+    });
+
+    it('should return at most the max number of items per page', function(done) {
+        var totalDisks = 8 * config.maxResultsPerQuery;
+        for (var i = 0; i < totalDisks; i++) {
+            var newDisk = _.extend({
+                name: 'disk #' + (i + 1).toString()
+            }, disks.withoutName);
+            superagent.post('http://localhost:3000/disks', {
+                disk: newDisk
+            }).end(function(err, data) {
+                assert.ifError(err);
+            });
+        }
+        setTimeout(function() {
+            assertListCount(config.maxResultsPerQuery, done);
+        }, 1000);
+    });
+
+    it('should get one item at the last page', function(done) {
+      superagent
+          .get('http://localhost:3000/disks?page=9')
+          .end(function(err, res) {
+              assert.ifError(err);
+              assert.equal(res.body.disks.length, 1);
+              done();
+          });
+    });
+
+    it('should be able to handle 200 customers in 1 seconds with 25 items', function(done) {
+        var totalReads = 0;
+        var totalUsers = 200;
+
+        for (var i = 0; i < totalUsers; i++) {
+            superagent
+                .get('http://localhost:3000/disks')
+                .end(function(err, res) {
+                    assert.ifError(err);
+                    totalReads += 1;
+                });
+        }
+
+        setTimeout(function() {
+            assert.equal(totalReads, totalUsers);
+            done();
+        }, 1000);
     });
 })

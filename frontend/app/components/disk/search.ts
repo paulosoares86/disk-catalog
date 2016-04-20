@@ -14,6 +14,9 @@ import {RouteParams, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'ang
 export class SearchDiskComponent implements OnInit {
     public title = 'Search Disks';
     public disks: Disk[];
+    public currentPage: number = 1;
+    public totalPages: number = 1;
+    public baseUrl: string = '/search';
 
     constructor(
         private _diskService: DiskService,
@@ -21,8 +24,14 @@ export class SearchDiskComponent implements OnInit {
 
     ngOnInit() {
         var query = this._routeParams.get('query');
-        this._diskService.search({query: query}).subscribe(
-          res => this.disks = res.json().disks,
+        var page = this._routeParams.get('page') || 1;
+        this._diskService.search(page, {query: query}).subscribe(
+          res => {
+            var jsonResponse = res.json();
+            this.currentPage = jsonResponse.page;
+            this.totalPages = jsonResponse.pages;
+            this.disks = jsonResponse.disks;
+          },
           err => console.error(err)
         );
     }

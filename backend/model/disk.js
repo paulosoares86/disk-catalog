@@ -1,13 +1,7 @@
 var DiskMongo = require('./disk/disk_mongo');
 var DiskFullText = require('./disk/disk_full_text');
+var config = require('../../config/config');
 var _ = require('underscore');
-
-var Disk = function(params) {
-    this.name = params.name;
-    this.author = params.author;
-    this.image = params.image;
-    this.description = params.description;
-}
 
 function extractFields(context) {
     return {
@@ -16,6 +10,10 @@ function extractFields(context) {
         image: context.image,
         description: context.description
     }
+}
+
+var Disk = function(params) {
+    _.extend(this, extractFields(params));
 }
 
 Disk.prototype.save = function(cb) {
@@ -30,8 +28,24 @@ Disk.prototype.save = function(cb) {
     });
 }
 
-Disk.all = function(cb) {
-    var diskMongo = DiskMongo.find({}, cb);
+Disk.all = function(page, cb) {
+    var intPage = parseInt(page);
+    if (Number.isNaN(intPage)) {
+      cb('Invalid format for page ' + page);
+      return;
+    }
+    var diskMongo = DiskMongo.paginate({}, {
+        page: intPage,
+        limit: config.maxResultsPerQuery
+    }, function(err, data) {
+        if (err) {
+            cb(err);
+            return;
+        }
+        data.disks = data.docs;
+        delete data.docs;
+        cb(null, data);
+    });
 }
 
 Disk.removeAll = function(cb) {

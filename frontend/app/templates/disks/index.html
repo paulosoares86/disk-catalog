@@ -6,3 +6,5 @@
       <disk-item *ngFor="#disk of disks" [disk]="disk" [collection]="disks" class="card col-md-4"></disk-item>
     </div>
 </div>
+
+<pagination baseUrl={{baseUrl}} currentPage={{currentPage}} totalPages={{totalPages}}></pagination>

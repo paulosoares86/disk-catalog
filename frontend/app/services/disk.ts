@@ -10,8 +10,8 @@ export class DiskService {
         this._headers.append('Content-Type', 'application/json');
     }
 
-    get() {
-        return this._http.get('http://localhost:3000/disks');
+    get(page) {
+        return this._http.get(`http://localhost:3000/disks?page=${page}`);
     }
 
     remove(disk) {
@@ -36,9 +36,9 @@ export class DiskService {
         });
     }
 
-    search(params) {
+    search(page, params) {
         var payload = JSON.stringify(params);
-        return this._http.post('http://localhost:3000/disks/search', payload, {
+        return this._http.post(`http://localhost:3000/disks/search?page=${page}`, payload, {
             headers: this._headers
         });
     }

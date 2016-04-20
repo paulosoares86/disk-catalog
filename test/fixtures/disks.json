@@ -2,35 +2,35 @@
     "first": {
         "name": "Led Zeppelin",
         "author": "Led Zeppelin",
-        "image": 12.45,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "second": {
         "name": "Under the Bridge",
         "author": "Red Hot Chilli Peppers",
-        "image": 42.19,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "withoutName": {
         "author": "Red Hot Chilli Peppers",
-        "image": 42.19,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "withEmptyName": {
         "name": "",
         "author": "Red Hot Chilli Peppers",
-        "image": 42.19,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "withoutAuthor": {
         "name": "Red Hot Chilli Peppers",
-        "image": 42.19,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "withEmptyAuthor": {
         "name": "Red Hot Chilli Peppers",
         "author": "",
-        "image": 42.19,
+        "image": "imageSlugASJKDJKASKJDS",
         "description": "some text that describes the disk"
     },
     "withoutImage": {
@@ -41,6 +41,6 @@
     "withoutDescription": {
       "name": "Red Hot Chilli Peppers",
       "author": "Red Hot Chilli Peppers",
-      "image": 12.03
+      "image": "imageSlugASJKDJKASKJDS"
     }
 }

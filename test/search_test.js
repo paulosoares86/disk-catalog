@@ -5,8 +5,8 @@ var disks = require('./fixtures/disks.json')
 
 describe('Search', function() {
     before(function(done) {
-        Disk.all(function(err, data) {
-            if (data && data.length > 0) Disk.removeAll();
+        Disk.all(1, function(err, data) {
+            if (data && data.disks.length > 0) Disk.removeAll();
             var disk1 = new Disk(disks.first);
             disk1.save(function(err) {
                 assert.ifError(err);

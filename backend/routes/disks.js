@@ -22,7 +22,8 @@ function buildResponse(error, data) {
 }
 
 router.get('/', function(req, res, next) {
-    Disk.all(buildResponse.bind(res));
+    var page = req.query.page || 1;
+    Disk.all(page, buildResponse.bind(res));
 });
 
 router.get('/:id', function(req, res, next) {
