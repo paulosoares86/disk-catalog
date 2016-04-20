@@ -46,7 +46,6 @@ import {Input, Component} from 'angular2/core';
 })
 
 export class PaginationComponent {
-  @Input() baseUrl: string;
   @Input() currentPage: number;
   @Input() totalPages: number;
 
@@ -70,7 +69,18 @@ export class PaginationComponent {
 
   public pageIndexToLink(index: Object) {
     if (index == '...') return '#';
-    return `${this.baseUrl}?page=${index}`;
+    var search = window.location.search;
+    if (search.indexOf('page=') >= 0) {
+      var searchParams = search.split('&');
+      var pageParamIndex = searchParams.indexOf('page=');
+      searchParams[pageParamIndex] = 'page=' + index;
+      search = searchParams.join('&');
+    } else if (search) {
+      search += '&page=' + index;
+    } else {
+      search += '?page=' + index;
+    }
+    return `${window.location.pathname}${search}`;
   }
 
   public isPageDisabled(index: Object) {

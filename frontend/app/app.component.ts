@@ -10,7 +10,6 @@ import {Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2
 @RouteConfig([
     { path: '/disk-list', name: 'Disk-List', component: ListDisksComponent, useAsDefault: true },
     { path: '/disk-create', name: 'Disk-Create', component: CreateDiskComponent },
-    { path: '/disk-search', name: 'Disk-Search', component: SearchDiskComponent },
     { path: '/disk-edit/:id', name: 'Disk-Edit', component: EditDiskComponent }
 ])
 @Component({
@@ -27,7 +26,7 @@ export class AppComponent {
 
     onSubmit() {
         if (!this.query) return;
-        this._router.navigate(['Disk-Search', { query: this.query }]);
+        this._router.navigate(['Disk-List', { query: this.query }]);
     }
 
     constructor(private _router: Router) { }

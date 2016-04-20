@@ -28,6 +28,8 @@ describe('Search', function() {
             query: 'bridge'
         }, function(err, data) {
             assert.ifError(err);
+            assert.equal(data.page, 1);
+            assert.equal(data.pages, 1);
             assert.equal(data.disks.length, 1);
             assert.equal(data.disks[0].name, 'Under the Bridge');
             done();

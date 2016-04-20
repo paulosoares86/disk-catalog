@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var elasticsearch = require('elasticsearch');
 var env = require('../../../config/env');
+var config = require('../../../config/config');
 var client = new elasticsearch.Client({
     host: 'localhost:9200'
 });
@@ -13,13 +14,20 @@ var baseQueryObject = {
 
 function queryObject(id, params) {
     var obj = params ? _.extend(params, baseQueryObject) : baseQueryObject;
-    return _.extend({id: id}, obj);
+    return _.extend({
+        id: id
+    }, obj);
 }
 
 module.exports = {
 
     find: function(params, cb) {
-        var queryObject = {"q": params.query};
+        var page = params.page || 1;
+        var queryObject = {
+            q: params.query,
+            size: config.maxResultsPerQuery,
+            from: (page - 1) * config.maxResultsPerQuery
+        };
         var q = _.extend(queryObject, baseQueryObject);
         client.search(q, function(err, data) {
             if (err) {
@@ -27,12 +35,14 @@ module.exports = {
                 return;
             }
             cb(err, {
+                page: page,
+                pages: Math.ceil(data.hits.total / config.maxResultsPerQuery),
                 disks: data.hits.hits.map(function(hit) {
-                        return _.extend({
-                            _id: hit._id
-                        }, hit._source);
-                    })
-                });
+                    return _.extend({
+                        _id: hit._id
+                    }, hit._source);
+                })
+            });
         });
     },
 

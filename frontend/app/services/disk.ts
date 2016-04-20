@@ -37,8 +37,9 @@ export class DiskService {
     }
 
     search(page, params) {
+        params.page = page || 1;
         var payload = JSON.stringify(params);
-        return this._http.post(`http://localhost:3000/disks/search?page=${page}`, payload, {
+        return this._http.post(`http://localhost:3000/disks/search`, payload, {
             headers: this._headers
         });
     }

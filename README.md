@@ -1,14 +1,9 @@
 WRITE LOAD: POST 8x25 / sec
-
+READ INDEX LOAD (25 objects): 200 reqs/sec
 
 TODO: remove unnecessary data from this file
-TODO: pagination
-TODO: what happens if some app crashes
-TODO: explain how this scales
+TODO: use haproxy and someway to restart crashed apps
 TODO: usar um lint
-TODO: lembrar que só vai pro elasticsearch com um segundo de atraso
-TODO: remover fotos antigas
-TODO: fazer loading
 
 Disk catalog
 ==================
@@ -36,13 +31,6 @@ Next you will need to install MongoDB. In OSX you can do this using the command
 The last dependencies you should install are Node.js and npm. You can
 follow the steps listed [here](https://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/)
 to install them on OSX. Please choose a version >= 4.2
-
-To finish you must install express and the required libraries:
-
-```shell
-  npm install -g express
-  npm install
-```
 
 Tests
 -----
