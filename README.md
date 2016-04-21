@@ -1,18 +1,13 @@
-
-- TODO: remove unnecessary data from this file
 - TODO: use haproxy and someway to restart crashed apps
-- TODO: usar um lint
+- TODO: use jslint
 
-Disk catalog
-==================
+Introduction
+============
 
-This project is a Disk Catalog. The objective is to show how ElasticSearch can
-be used with MongoDB in order to provide full-text search.
-
-The chosen framework for the backend is Node.js and AngularJS 2 for the frontend.
+This project is a searchable Disk Catalog built with Express.js and Angular 2. The objective is to show how ElasticSearch can be used along with MongoDB to provide full-text search.
 
 Installation
-------------
+============
 
 First install ElasticSearch. If you are using OSX you can do this using homebrew
 
@@ -28,7 +23,9 @@ Next you will need to install MongoDB. In OSX you can do this using the command
 
 The last dependencies you should install are Node.js and npm. You can
 follow the steps listed [here](https://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/)
-to install them on OSX. Please choose a version >= 4.2
+to install them on OSX. 
+
+Please make sure NodeJS version is >= 4.2
 
 Tests
 -----
@@ -36,7 +33,7 @@ Tests
 To run tests you should install mocha
 
 ```shell
-  npm install –g mocha@1.16.2
+  npm install –g mocha
 ```
 
 and after that, with ElasticSearch and MongoDB running just execute
@@ -46,16 +43,26 @@ and after that, with ElasticSearch and MongoDB running just execute
 ```
 
 Execution
----------
+============
 
-To run the application simply run on your terminal
+Development Environment
+-----------------------
+
+To run the application on your local machine start the backend
 
 ```shell
   node app.js
 ```
 
+and after this
+
+```shell
+  cd frontend
+  npm start
+```
+
 Performance
-------------
+===========
 
 Development
 
@@ -64,9 +71,10 @@ Development
 
 
 Author & Credits
-----------------
+=================
+
 This application was written by [Paulo Soares](phsoares.ita@gmail.com).
 
 License
--------
-Copyright (c) 2011 Erwin Matthijssen, released under the MIT license
+=======
+Copyright (c) 2016 Paulo Soares, released under the MIT license
