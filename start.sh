@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in `seq 1 100`;
+for i in `seq 3001 3010`;
 do
-  PORT=$[$i + 2999] forever start backend/bin/www
+  PORT=$i forever start backend/bin/www
 done
