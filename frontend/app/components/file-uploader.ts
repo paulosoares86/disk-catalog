@@ -1,5 +1,6 @@
 export class FileUploader {
-    public backendUrl: string = 'http://localhost:3000/upload';
+    public backendUrl: string = ':3000/upload';
+    private baseUrl: string = `//${window.location.hostname}`;
     private _filesToUpload: Array<File> = [];
 
     makeFileRequest() {
@@ -20,7 +21,7 @@ export class FileUploader {
                     }
                 }
             }
-            xhr.open("POST", url, true);
+            xhr.open("POST", `${this.baseUrl}${url}`, true);
             xhr.send(formData);
         });
     }
