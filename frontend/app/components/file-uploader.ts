@@ -1,11 +1,10 @@
 export class FileUploader {
-    public backendUrl: string = ':3000/upload';
-    private baseUrl: string = `//${window.location.hostname}`;
+    public backendEndpoint: string = '/uploads';
     private _filesToUpload: Array<File> = [];
 
     makeFileRequest() {
         return new Promise((resolve, reject) => {
-            var url: string = this.backendUrl;
+            var url: string = `//${window.location.hostname}:3000${this.backendEndpoint}`;
             var files = this._filesToUpload;
             var formData: any = new FormData();
             var xhr = new XMLHttpRequest();
@@ -21,11 +20,10 @@ export class FileUploader {
                     }
                 }
             }
-            xhr.open("POST", `${this.baseUrl}${url}`, true);
+            xhr.open("POST", url, true);
             xhr.send(formData);
         });
     }
-
 
     fileChangeEvent(fileInput: any) {
         this._filesToUpload = <Array<File>> fileInput.target.files;

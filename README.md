@@ -71,28 +71,6 @@ and then start the frontend
   $ npm start
 ```
 
-Performance
-===========
-
-Development
------------
-
-- POST `/disks` (to create new disks) 200 reqs / sec
-- GET `/disks` (list of 25 objects): 200 reqs/sec
-
-Production
-----------
-
-The stack used was:
-
-1. one instance of Nginx were used to serve static files from frontend app (Angular2)
-2. a HAProxy as a load balancer with 20 instances of the backend application (Express.js)
-3. one instance of MongoDB to persist data
-4. one instance of ElasticSearch to be the database of the search API
-
-- POST `/disks` (to create new disks) 200 reqs / sec
-- GET `/disks` (list of 25 objects): 200 reqs/sec
-
 Author & Credits
 =================
 

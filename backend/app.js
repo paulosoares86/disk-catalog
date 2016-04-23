@@ -4,11 +4,11 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var multer = require("multer");
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var disks = require('./routes/disks');
+var uploads = require('./routes/uploads');
 
 var app = express();
 app.use(cors());
@@ -26,13 +26,10 @@ app.use(cookieParser());
 
 var publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
-app.post("/upload", multer({dest: path.join(publicPath, 'images')})
-    .array("uploads[]", 12), function(req, res) {
-      res.send(req.files);
-    });
 
 app.use('/', routes);
 app.use('/disks', disks);
+app.use('/uploads', uploads);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

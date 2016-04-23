@@ -16,24 +16,26 @@ export class CreateDiskComponent {
 
     constructor(private _diskService: DiskService) { }
 
+    handleError(res) {
+        if (res.status == 400) {
+            this.validationErrors = JSON.parse(res._body).validationErrors;
+        } else {
+            console.error(res);
+        }
+    }
+
     createDisk(filename) {
         this.model.image = filename;
         this._diskService.post(this.model).subscribe(
             res => window.location.replace('/'),
-            res => {
-                if (res.status == 400) {
-                    this.validationErrors = JSON.parse(res._body).validationErrors;
-                } else {
-                    console.error(res);
-                }
-            }
+            res => this.handleError(res)
         );
     }
 
     onSubmit() {
         this.fileUploader.makeFileRequest().then(
             res => { if (res && res[0]) this.createDisk(res[0].filename) },
-            error => console.error(error)
+            res => { this.validationErrors = JSON.parse(res).validationErrors }
         );
     }
 
