@@ -1,6 +1,3 @@
-- TODO: use haproxy and someway to restart crashed apps
-- TODO: use jslint
-
 Introduction
 ============
 
@@ -15,7 +12,7 @@ First install ElasticSearch. If you are using OS X you can do this using homebre
   $ brew install elasticsearch
 ```
 
-I recomend this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-14-04) if you are using Ubuntu 14.04.
+or follow this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-14-04) if you are using Ubuntu 14.04.
 
 Next you will need to install MongoDB. In OS X you can do this using the command
 
@@ -23,12 +20,12 @@ Next you will need to install MongoDB. In OS X you can do this using the command
   $ brew install mongodb
 ```
 
-You can follow this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-14-04) if you are using Ubuntu 14.04.
+or follow this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-14-04) if you are using Ubuntu 14.04.
 
 
 The next dependencies you should install are Node.js and npm. You can
 follow the steps listed [here](https://coolestguidesontheplanet.com/installing-node-js-on-osx-10-10-yosemite/)
-to install them on OS X. If you are on Ubuntu 14.04 you can type on your terminal:
+to install them on OS X. If you are on Ubuntu 14.04 you can do this using your terminal:
 
 ```
   $ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
@@ -36,15 +33,6 @@ to install them on OS X. If you are on Ubuntu 14.04 you can type on your termina
 ```
 
 Either way, please make sure NodeJS version is >= 4.2.
-
-If you will use the application in development mode only, you can skip to the next sessions. Otherwise you will need Nginx and HAProxy. To install HAProxy in Ubuntu 14.04 you can follow [this tutorial](https://serversforhackers.com/load-balancing-with-haproxy)
-
-Finally install forever and start 100 instances running `start.sh` script in the root of the repository
-
-```
-  $ sudo npm install -g forever
-  $ sh start.sh
-```
 
 Tests
 -----
@@ -61,19 +49,22 @@ and after that, with ElasticSearch and MongoDB running just execute
   $ mocha
 ```
 
-Execution
-============
+Development
+===========
 
-Development Environment
------------------------
+To run the application on your local machine install de dependencies
 
-To run the application on your local machine start the backend
+```shell
+  $ npm install
+```
+
+start the backend
 
 ```shell
   $ node app.js
 ```
 
-and after this
+and then start the frontend
 
 ```shell
   $ cd frontend
@@ -84,10 +75,23 @@ Performance
 ===========
 
 Development
+-----------
 
 - POST `/disks` (to create new disks) 200 reqs / sec
 - GET `/` (list of 25 objects): 200 reqs/sec
 
+Production
+----------
+
+The stack used was:
+
+1. one instance of Nginx were used to serve static files from frontend app (Angular2)
+2. a HAProxy as a load balancer with 20 instances of the backend application (Express.js)
+3. one instance of MongoDB to persist data
+4. one instance of ElasticSearch to be the database of the search API
+
+- POST `/disks` (to create new disks) 200 reqs / sec
+- GET `/disks` (list of 25 objects): 200 reqs/sec
 
 Author & Credits
 =================
