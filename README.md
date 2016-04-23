@@ -78,7 +78,7 @@ Development
 -----------
 
 - POST `/disks` (to create new disks) 200 reqs / sec
-- GET `/` (list of 25 objects): 200 reqs/sec
+- GET `/disks` (list of 25 objects): 200 reqs/sec
 
 Production
 ----------

@@ -1,6 +1,4 @@
-<a href="{{disk.url}}" (click)="editBtnClick(disk)">
-    <img src="{{disk.image | imageFromBackend }}" alt="disk image" class="card-image">
-</a>
+<img src="{{disk.image | imageFromBackend }}" alt="disk image" class="card-image" (click)="editBtnClick(disk)">
 <div class="card-block">
     <h4 class="card-title">{{disk.name}}</h4>
     <p><b>Author: </b>{{disk.author}}</p>
