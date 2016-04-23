@@ -173,39 +173,4 @@ describe('Disks Endpoint', function() {
 
         }, 1000);
     });
-
-    it('should get one item at the last page', function(done) {
-        Disk.search({
-            query: 'new disk', page: 9
-        }, function(err, data) {
-            assert.ifError(err);
-            assert.equal(data.disks.length, 1);
-            superagent
-                .get('http://localhost:3000/disks?page=9')
-                .end(function(err, res) {
-                    assert.ifError(err);
-                    assert.equal(res.body.disks.length, 1);
-                    done();
-                });
-        });
-    });
-
-    it('should be able to handle 200 customers in 1 seconds with 25 items', function(done) {
-        var totalReads = 0;
-        var totalUsers = 200;
-
-        for (var i = 0; i < totalUsers; i++) {
-            superagent
-                .get('http://localhost:3000/disks')
-                .end(function(err, res) {
-                    assert.ifError(err);
-                    totalReads += 1;
-                });
-        }
-
-        setTimeout(function() {
-            assert.equal(totalReads, totalUsers);
-            done();
-        }, 1000);
-    });
 })
