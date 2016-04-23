@@ -9,7 +9,7 @@ import {Input, Component} from 'angular2/core';
       }
     `],
     template: `
-      <nav *ngIf="totalPages" class="pagination-nav">
+      <nav class="pagination-nav">
         <ul class="pagination">
 
           <li class="page-item" [class.disabled]="currentPage == 1">

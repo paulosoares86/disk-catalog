@@ -26,9 +26,10 @@ app.use(cookieParser());
 
 var publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
-app.post("/upload", multer({dest: publicPath}).array("uploads[]", 12), function(req, res) {
-    res.send(req.files);
-});
+app.post("/upload", multer({dest: path.join(publicPath, 'images')})
+    .array("uploads[]", 12), function(req, res) {
+      res.send(req.files);
+    });
 
 app.use('/', routes);
 app.use('/disks', disks);
